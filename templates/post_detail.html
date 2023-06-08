@@ -1,0 +1,25 @@
+{% extends 'default.html' %}
+
+{% block title %}
+{{ news_detail.title }}
+{% endblock title %}
+
+{% block content %}
+<h2>{{ post_detail.title }}</h2>
+<h6>Автор: {{ post_detail.author }}</h6>
+<h6>Дата создания: {{ post_detail.date_create|date:'d-M-Y h:m' }}</h6>
+<hr>
+<span>
+    {% autoescape off %}
+    {{ post_detail.post }}
+    {% endautoescape %}
+</span>
+    </div>
+<hr>
+Категория:
+    {{ post_detail.category_id }}
+
+<br>
+
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+<body>
+    <h2>Здравствуй, {{ author.username }}. Новый отклик к твоему объявлению!</h2>
+    <h3> {{ post.post.title }} </h3>
+    <p> {{ post.retries |truncatechars:50 }} </p>
+
+    <h6> Для просмотра полной статьи перейдите по <a href="http://127.0.0.1:8000/sign">ссылке</a></h6>
+</body>
+</html>

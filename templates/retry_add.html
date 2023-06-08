@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+
+{% block title %}
+{{ news_detail.title }}
+{% endblock title %}
+
+{% block content %}
+<h3>Добавить отклик</h3>
+<hr>
+<form method="POST" class="form-example">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить отклик">
+</form>
+{% endblock content %}

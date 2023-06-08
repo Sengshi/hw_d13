@@ -1,0 +1,76 @@
+{% extends 'default.html' %}
+
+{% block title %}
+Cтраница пользователя
+{% endblock title %}
+
+{% block content %}
+<h2>Страница пользователя {{request.user.username}}</h2>
+<div>
+       {% if auth == False %}
+        <h5>Для завершения регистрации, введите код подтверждения,<br>
+            высланный на указанную Вами электронную почту:</h5><br>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-secondary" type="submit" value="Проверить">
+        </form>
+        {% if code_not_correct %}
+            <a style="font-size: 16px; color:red">{{ code_not_correct }}</a><br>
+            <a href="{% url 'auth_code' %}" style="font-size: 16px; color:blue">Выслать новый код</a>
+        {% endif %}
+    {% else %}
+        <h5>Ваша электронная почта подтверждена</h5>
+        <a>Вы можете размещать новые объявления и делать отклики</a><br>
+    <div >
+     {% if retryes %}
+        <form action="{% url 'account_profile' %}" method="get">
+            <input name="q" type="text" placeholder="Search...">
+        </form>
+
+        <table >
+            <thead>
+                <th>Действия</th>
+                <th>
+                    Новость
+                </th>
+                <th>
+                    Пользователь
+                </th>
+                <th>
+                    Отклик
+                </th>
+            </thead>
+        {% for retry in retryes %}
+            <tr>
+                <td>
+                    <a href="{% url 'retry_true' retry.id %}"><u> Принять </u></a>
+                    <a href="{% url 'retry_false' retry.id %}"><u> Отклонить </u></a>
+                </td>
+                <td>
+                    <a href="{% url 'post_detail' retry.post.id %}">{{ retry.post }}</a>
+                </td>
+                <td>
+                    {{ retry.user }}
+                </td>
+                <td class="td1">
+                    {{ retry.retries }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <a href="{% url 'account_profile' %}" style="font-size: 16px; color:blue">Сбросить фильтр</a>
+        <h2>Откликов нет!</h2>
+    {% endif %}
+
+</div>
+    {% endif %}
+
+
+</div>
+
+
+<button> <a href="/accounts/logout/">Выйти</a> </button>
+
+{% endblock content %}
